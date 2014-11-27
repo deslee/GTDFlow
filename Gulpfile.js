@@ -14,7 +14,7 @@ var build_options = {
 };
 
 var external_libraries = [
-	'react/addons'
+	'react/addons', 'flux', 'keymirror', 'events', 'object-assign'
 ];
 
 /**
@@ -53,6 +53,22 @@ gulp.task('build:app', function() {
 		.pipe(gulp.dest('./build'));
 });
 
+gulp.task('build:specs', function() {
+  return gulp.src('./app/spec.js', {read: false})
+    .pipe(browserify({
+      transform: [],
+      debug: process.env.NODE_ENV != 'production',
+    }))
+    .on('prebundle', function(bundle) {
+      external_libraries.forEach(function(lib) {
+        bundle.external(lib);
+      });
+    })
+    .on('error', function(err) {console.error(err)})
+    .pipe(rename('specs.js'))
+    .pipe(gulp.dest('./build'));
+})
+
 /**
  * Precompile the style and move it to ./build
  **/
@@ -87,7 +103,7 @@ gulp.task('move:bower', function() {
 });
 
 gulp.task('build', function(cb) {
-  runSequence(['build:vendor', 'build:app'], cb)
+  runSequence(['build:vendor', 'build:app', 'build:specs'], cb)
 });
 
 gulp.task('move', function(cb) {
@@ -122,6 +138,7 @@ gulp.task('watch', function() {
   watch('./app/**/*.js', 'build:app');
   watch('./app/app.less', 'move:css');
   watch('./app/assets/**/*', 'move:assets');
+  watch('./app/**/*.spec.js', 'build:specs');
 });
 
 gulp.task('default', function(cb) {

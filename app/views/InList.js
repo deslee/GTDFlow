@@ -22,6 +22,13 @@ var Item = require('../components/Item');
 
 var InList = React.createClass({
   mixins: [MaterialMixin],
+  componentWillMount: function() {
+  },
+  getInitialState: function() {
+    return {
+      listItems: dummyList
+    }
+  },
   selectAllCboxChanged: function(e) {
     var items = this.state.listItems.map(function(item) {
       item.selected = e.target.checked;
@@ -31,11 +38,6 @@ var InList = React.createClass({
     this.setState({
       listItems: items
     })
-  },
-  getInitialState: function() {
-    return {
-      listItems: dummyList
-    }
   },
   render: function() {
     return <div>
