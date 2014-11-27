@@ -56,13 +56,13 @@ This is the most important list in the application. The purpose of this list is 
 
 The application will make it simple and trivial for the User to process the In List.
 
-According to the GTD framework, if the In List item is **Actionable**, the User will be encouraged to list the next *physical* and *visible* Action needed to make progress on the task.
+According to the GTD framework, the User will be encouraged to list the next *physical* and *visible* Action needed to make progress on the task. If the User does so, then the item is `Actionable`.
 
 After processing, the user may choose to promote the item to either the *Next Actions List* (which is a list of Actions that the User wants to "do ASAP), or the *Someday / Maybe List* (an auxiliary list of Actions that the User does not want in their Next Actions List)
 
-If the item is not **Actionable**, then the User can add it to a "Some day / Maybe list" or Incubate it.
-
 If the Action is not immediately "do-able", then the User must **Delegate** it (i.e., instruct the application to remind the User about the item in the distant future).
+
+The user may also choose to `Incubate` the item. This puts the item "on hold" for a specified amount of time, in which the item will re-appear in the In List.
 
 ### The Next Actions List
 

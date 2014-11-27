@@ -9,7 +9,7 @@ var GfBar = React.createClass({
           <span className="icon-bar"></span>
           <span className="icon-bar"></span>
         </button>
-        <a className="navbar-brand" href="">In List</a>
+        <a className="navbar-brand" href="">{this.props.title}</a>
       </div>
     </div>
     }
