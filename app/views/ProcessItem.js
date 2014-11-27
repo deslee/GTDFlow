@@ -15,7 +15,7 @@ var ProcessItem = React.createClass({
     return <div>
       <GfBar title="Process Item"></GfBar>
       <div className="gf-content">
-        <h2>See Interstellar</h2>
+        <h2>{this.state.item.title}</h2>
         <div className="form-group">
           <input className="form-control floating-label col-xs-2" id="focusedInput" type="text" placeholder="Add Action" />
           <a href="javascript:void(0)" className="btn btn-primary ">Add Action</a>

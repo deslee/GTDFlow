@@ -65,6 +65,15 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
       ItemStore.emitChange();
       break;
 
+    case ActionTypes.INITIALIZE_ITEM:
+      if (ItemStore.findItemByName(action.name)) {
+        throw "Can't have two items with the same name!";
+      }
+      ItemStore._items.push(assign({}, Item, action.item));
+      ItemStore.emitChange();
+      break;
+
+
     case ActionTypes.ADD_ITEM:
       if (ItemStore.findItemByName(action.name)) {
         throw "Can't have two items with the same name!";

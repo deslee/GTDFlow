@@ -14,7 +14,7 @@ var build_options = {
 };
 
 var external_libraries = [
-	'react/addons', 'flux', 'keymirror', 'events', 'object-assign'
+	'react/addons', 'react-router', 'flux', 'keymirror', 'events', 'object-assign'
 ];
 
 /**

@@ -24,3 +24,22 @@
     position: absolute;
   }
 }
+
+.route-enter {
+  opacity: 0.01;
+  transition: opacity .25s ease-in;
+}
+
+.route-enter.route-enter-active {
+  opacity: 1;
+}
+
+.route-leave {
+  opacity: 0.1;
+  visibility: hidden;
+  transition: opacity 0.1s ease-in;
+}
+
+.route-leave.route-leave-active {
+  opacity: 0.01;
+}

@@ -1,24 +1,42 @@
 angular.module('gtdflow', []);
 var React = require('react/addons');
+var ItemActions = require('./actions/ItemActions');
+var Router = require('react-router');
 
-var ProcessItem = require('./views/ProcessItem');
+var Router = require('react-router');
+var Route = Router.Route;
+var Link = Router.Link;
+var DefaultRoute = Router.DefaultRoute;
+var NotFoundRoute = Router.NotFoundRoute;
+var MainHandler = require('./routes/MainHandler');
+
+var ProcessItem = require('./routes/ProcessItem');
 var InList = require('./views/InList');
 
 var dummyList = [
   {
-    title: "See Interstellar",
+    name: "See Interstellar",
+  },
+  {
+    name: "Buy a new laptop",
     selected: false
   },
   {
-    title: "Buy a new laptop",
-    selected: false
-  },
-  {
-    title: "Create a GTD application",
+    name: "Create a GTD application",
     selected: false
   }
 ];
 
+dummyList.forEach(function(item) {
+  ItemActions.initialize(item);
+});
 
 
-React.render(<div><InList></InList><ProcessItem item={dummyList[0]}></ProcessItem></div>, document.getElementById("gf-wrapper"));
+var routes = <Route handler={MainHandler}>
+  <DefaultRoute handler={InList} name="inlist" />
+  <Route handler={ProcessItem} name="processItem" path="process/:itemName" />
+</Route>
+
+Router.run(routes, function(Handler) {
+  React.render(<Handler />, document.getElementById("gf-wrapper"));
+})
