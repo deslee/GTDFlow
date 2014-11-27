@@ -3,12 +3,17 @@
  */
 
 describe('Item store', function() {
-  var ItemStore, ItemActions, ItemLocations, gtdDispatcher;
+  var ItemStore, ItemActions, ItemLocations, gtdDispatcher, items;
+  ItemStore = require('./itemstore.js');
+  gtdDispatcher = require('../dispatchers/gtdDispatcher');
+  ItemActions = require('../actions/ItemActions');
+  ItemLocations = require('../constants/gtdConstants').ItemLocations;
+
+  ItemStore.addChangeListener(function() {
+    items = ItemStore.getItems();
+  });
+
   beforeEach(function() {
-    gtdDispatcher = require('../dispatchers/gtdDispatcher');
-    ItemStore = require('./itemstore.js');
-    ItemActions = require('../actions/ItemActions');
-    ItemLocations = require('../constants/gtdConstants').ItemLocations;
     ItemStore.reset();
   });
 
@@ -18,12 +23,7 @@ describe('Item store', function() {
 
   describe('With one item', function() {
     var item_name = 'See Interstella';
-    var items = null;
     beforeEach(function() {
-      items = null;
-      ItemStore.addChangeListener(function() {
-        items = ItemStore.getItems();
-      });
       ItemActions.add_item(item_name);
     });
 
@@ -63,6 +63,51 @@ describe('Item store', function() {
       it('should let you remove an action from an item', function() {
         ItemActions.delete_action(item_name, action_name);
         expect(items[0].actions.length).toBe(0);
+      })
+    });
+
+    describe('moving locations', function() {
+      it('should be able to move to the next actions list', function() {
+        ItemActions.move_next_actions(item_name);
+        expect(items[0].location).toBe(ItemLocations.NEXT_ACTIONS);
+        expect(ItemStore.findItemsByLocation(ItemLocations.NEXT_ACTIONS).length).toBe(1);
+      });
+      it('should be able to move to the someday / maybe list', function() {
+        ItemActions.move_someday_maybe(item_name);
+        expect(items[0].location).toBe(ItemLocations.SOMEDAY_MAYBE);
+        expect(ItemStore.findItemsByLocation(ItemLocations.SOMEDAY_MAYBE).length).toBe(1);
+      });
+      it('should be able to move to the waiting list', function() {
+        ItemActions.move_waiting(item_name);
+        expect(items[0].location).toBe(ItemLocations.WAITING);
+        expect(ItemStore.findItemsByLocation(ItemLocations.WAITING).length).toBe(1);
+      });
+      it('should be able to move to the references list', function() {
+        ItemActions.move_references(item_name);
+        expect(items[0].location).toBe(ItemLocations.REFERENCES);
+        expect(ItemStore.findItemsByLocation(ItemLocations.REFERENCES).length).toBe(1);
+      });
+      it('should be able to move to the in list list', function() {
+        ItemActions.move_in_list(item_name);
+        expect(items[0].location).toBe(ItemLocations.IN_LIST);
+        expect(ItemStore.findItemsByLocation(ItemLocations.IN_LIST).length).toBe(1);
+      });
+    })
+
+    var project_name = 'Understand Film';
+    var notes = "Hello world!"
+    describe('setting metadata', function() {
+      it('should let you set the project', function() {
+        ItemActions.set_project(item_name, project_name);
+        expect(items[0].project).toBe(project_name)
+        var results = ItemStore.findItemsByProjectName(project_name);
+        expect(results.length).toBe(1);
+        expect(results[0].name).toBe(item_name);
+      });
+
+      it('should let you set the notes', function() {
+        ItemActions.set_notes(item_name, notes);
+        expect(items[0].notes).toBe(notes)
       })
     })
   })

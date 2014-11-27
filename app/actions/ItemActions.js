@@ -21,7 +21,7 @@ module.exports = {
 
   move_next_actions: function(name) {
     gtdDispatcher.handleViewAction({
-      type: ActionType.MOVE_ITEM_TO_NEXT_ACTIONS_LIST,
+      type: ActionTypes.MOVE_ITEM_TO_NEXT_ACTIONS_LIST,
       name: name
     })
   },
@@ -29,6 +29,13 @@ module.exports = {
   move_someday_maybe: function(name) {
     gtdDispatcher.handleViewAction({
       type: ActionTypes.MOVE_ITEM_TO_SOMEDAY_MAYBE_LIST,
+      name: name
+    })
+  },
+
+  move_in_list: function(name) {
+    gtdDispatcher.handleViewAction({
+      type: ActionTypes.MOVE_ITEM_TO_IN_LIST,
       name: name
     })
   },

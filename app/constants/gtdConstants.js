@@ -9,6 +9,7 @@ module.exports = {
     INCUBATE_ITEM: null,
     MOVE_ITEM_TO_NEXT_ACTIONS_LIST: null,
     MOVE_ITEM_TO_SOMEDAY_MAYBE_LIST: null,
+    MOVE_ITEM_TO_IN_LIST: null,
     MOVE_ITEM_TO_WAITING_LIST: null,
     MOVE_ITEM_TO_REFERENCES_LIST: null,
 
