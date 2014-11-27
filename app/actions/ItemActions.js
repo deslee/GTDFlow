@@ -50,7 +50,7 @@ module.exports = {
 
   set_project: function(name, project) {
     gtdDispatcher.handleViewAction({
-      types: ActionTypes.SET_ITEM_PROJECT,
+      type: ActionTypes.SET_ITEM_PROJECT,
       name: name,
       project: project
     })
@@ -58,7 +58,7 @@ module.exports = {
 
   set_notes: function(name, notes) {
     gtdDispatcher.handleViewAction({
-      types: ActionTypes.SET_ITEM_NOTES,
+      type: ActionTypes.SET_ITEM_NOTES,
       name: name,
       notes: notes
     })
@@ -66,7 +66,7 @@ module.exports = {
 
   add_action: function(name, action) {
     gtdDispatcher.handleViewAction({
-      types: ActionTypes.ADD_ACTION_TO_ITEM,
+      type: ActionTypes.ADD_ACTION_TO_ITEM,
       name: name,
       action: action
     })
@@ -74,15 +74,37 @@ module.exports = {
 
   delete_action: function(name, action) {
     gtdDispatcher.handleViewAction({
-      types: ActionTypes.DELETE_ACTION_FROM_ITEM,
+      type: ActionTypes.DELETE_ACTION_FROM_ITEM,
       name: name,
       action: action
+    })
+  },
+
+  initialize: function(item) {
+    gtdDispatcher.handleViewAction({
+      type: ActionTypes.INITIALIZE_ITEM,
+      item: item
+    })
+  },
+
+  add_item: function(name) {
+    gtdDispatcher.handleViewAction({
+      type: ActionTypes.ADD_ITEM,
+      name:name
+    })
+  },
+
+  delete_item: function(name) {
+    gtdDispatcher.handleViewAction({
+      type: ActionTypes.DELETE_ITEM,
+      name: name
     })
   }
 };
 /*
 
 INCUBATE_ITEM: null,
+
   MOVE_ITEM_TO_NEXT_ACTIONS_LIST: null,
   MOVE_ITEM_TO_SOMEDAY_MAYBE_LIST: null,
   MOVE_ITEM_TO_WAITING_LIST: null,
