@@ -3,6 +3,18 @@ var keyMirror = require('keymirror');
 module.exports = {
   ActionTypes: keyMirror({
     TEST_ACTION: null,
+    DELETE_ITEM: null,
+
+    INCUBATE_ITEM: null,
+    MOVE_ITEM_TO_NEXT_ACTIONS_LIST: null,
+    MOVE_ITEM_TO_SOMEDAY_MAYBE_LIST: null,
+    MOVE_ITEM_TO_WAITING_LIST: null,
+    MOVE_ITEM_TO_REFERENCES_LIST: null,
+
+    SET_ITEM_PROJECT: null,
+    SET_ITEM_NOTES: null,
+    ADD_ACTION_TO_ITEM: null,
+    DELETE_ACTION_FROM_ITEM: null
   }),
 
   PayloadSources: keyMirror({

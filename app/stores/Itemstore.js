@@ -5,6 +5,7 @@ var gtdDispatcher = require('../dispatchers/gtdDispatcher')
 var gtdConstants = require('../constants/gtdConstants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var _ = require('lodash');
 
 var ActionTypes = gtdConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
@@ -27,8 +28,9 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
   switch(action.type) {
     case ActionTypes.TEST_ACTION:
           console.log('test');
-          ItemStore.emitChange();
           break;
+    case ActionTypes.DELETE_ITEM:
+          _.find()
     default:
           //do nothing
           break;
