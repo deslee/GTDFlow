@@ -8,19 +8,26 @@ var RouteHandler = Router.RouteHandler;
 
 var ProcessItem = require('../views/ProcessItem');
 var ItemMixin = require('../mixins/ItemMixin');
+var ItemStore = require('../stores/Itemstore');
 
 module.exports = React.createClass({
   mixins: [ Router.State, ItemMixin ],
+  componentWillMount: function() {
+    ItemStore.addChangeListener(this.update);
+    this.update();
+  },
+  update: function() {
+    var item = ItemStore.findItemByName(this.state.itemName);
+    var state = this.state;
+    state.item = item;
+    this.setState(state)
+  },
   getInitialState: function() {
     return {
       itemName: this.getParams().itemName
     }
   },
   render: function() {
-    var route = this.getRoutes().reverse()[0];
-    var key = JSON.stringify(route)+JSON.stringify(this.getParams());
-    console.log(this.state);
-
-    return <TransitionGroup transitionName="route"><RouteHandler key={key} /></TransitionGroup>
+    return <ProcessItem item={this.state.item}/>
   }
 })

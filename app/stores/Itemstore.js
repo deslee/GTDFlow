@@ -48,7 +48,6 @@ var ItemStore = assign({}, EventEmitter.prototype, {
 var Item = {
   name: null,
   location: ItemLocations.IN_LIST,
-  actions: [],
   project: '',
   notes: '',
 };
@@ -69,7 +68,7 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
       if (ItemStore.findItemByName(action.name)) {
         throw "Can't have two items with the same name!";
       }
-      ItemStore._items.push(assign({}, Item, action.item));
+      ItemStore._items.push(assign({actions: []}, Item, action.item));
       ItemStore.emitChange();
       break;
 
@@ -79,7 +78,7 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
         throw "Can't have two items with the same name!";
       }
 
-      ItemStore._items.push(assign({}, Item, {
+      ItemStore._items.push(assign({actions: []}, Item, {
         name: action.name,
         location: ItemLocations.IN_LIST
       }));

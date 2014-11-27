@@ -1,6 +1,9 @@
 var React = require("react/addons");
 var MaterialMixin = require('../mixins/MaterialMixin');
 
+var Router = require('react-router');
+var Link = Router.Link;
+
 var Item = React.createClass({
   mixins: [MaterialMixin],
   selectedChanged:function(e){
@@ -22,7 +25,7 @@ var Item = React.createClass({
       </div>
       <div className="row-content">
         <h4 className="list-group-item-heading">{this.state.data.item.name}</h4>
-        <p className="list-group-item-text"><a href="javascript:void(0)">Process item</a></p>
+        <p className="list-group-item-text"><Link to="processItem" params={{itemName: this.state.data.item.name}}>Process item</Link></p>
       </div>
     </div>;
   }

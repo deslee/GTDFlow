@@ -16,19 +16,23 @@ var InList = require('./views/InList');
 var dummyList = [
   {
     name: "See Interstellar",
+    _actions: ['Check showtimes online', 'Buy tickets']
   },
   {
     name: "Buy a new laptop",
-    selected: false
+    _actions: ['Look up preferred features online', 'Make list of stores']
   },
   {
     name: "Create a GTD application",
-    selected: false
+    _actions: ['Google about GTD']
   }
 ];
 
 dummyList.forEach(function(item) {
   ItemActions.initialize(item);
+  item._actions.forEach(function(action) {
+    ItemActions.add_action(item.name, action);
+  });
 });
 
 

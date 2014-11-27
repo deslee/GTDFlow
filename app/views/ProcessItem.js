@@ -12,10 +12,13 @@ var ProcessItem = React.createClass({
     }
   },
   render: function() {
+    console.log(this.state.item);
+    var actionList = this.state.item.actions.map(function(action) {
+      return <li key={action.name}>{action.name}</li>
+    });
+
     return <div>
-      <GfBar title="Process Item"></GfBar>
-      <div className="gf-content">
-        <h2>{this.state.item.title}</h2>
+        <h2>{this.state.item.name}</h2>
         <div className="form-group">
           <input className="form-control floating-label col-xs-2" id="focusedInput" type="text" placeholder="Add Action" />
           <a href="javascript:void(0)" className="btn btn-primary ">Add Action</a>
@@ -25,12 +28,10 @@ var ProcessItem = React.createClass({
         <h2>Actions</h2>
 
         <ul>
-          <li>Check showtimes online</li>
-          <li>Buy tickets</li>
+          {actionList}
         </ul>
 
         <ItemOptions item={this.state.item} />
-      </div>
     </div>
   }
 });
