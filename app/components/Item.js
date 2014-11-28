@@ -1,6 +1,6 @@
 var React = require("react/addons");
 var MaterialMixin = require('../mixins/MaterialMixin');
-
+var ItemLocation = require('../constants/gtdConstants').ItemLocations;
 var Router = require('react-router');
 var Link = Router.Link;
 
@@ -30,13 +30,27 @@ var Item = React.createClass({
     this.setState(state);
   },
   render: function() {
+    var itemText;
+    switch(this.state.item.location) {
+      case ItemLocation.IN_LIST:
+        itemText = <Link to="processItem" params={{itemName: this.state.item.name}}>Process</Link>;
+        break;
+      case ItemLocation.NEXT_ACTIONS:
+        itemText = <Link to="processItem" params={{itemName: this.state.item.name}}>Modify</Link>;
+        break;
+      case ItemLocation.WAITING:
+        itemText = <div>Waiting for: {this.state.item.waitingFor}<br /><Link to="processItem" params={{itemName: this.state.item.name}}>Modify</Link></div>;
+    }
+
     return <div className="list-group-item">
       <div className="row-action-primary checkbox">
         <label><input type="checkbox" onChange={this.selectedChanged} checked={this.state.selected}/></label>
       </div>
       <div className="row-content">
         <h4 className="list-group-item-heading">{this.state.item.name}</h4>
-        <p className="list-group-item-text"><Link to="processItem" params={{itemName: this.state.item.name}}>Process item</Link></p>
+        <p className="list-group-item-text">
+          {itemText}
+        </p>
       </div>
     </div>;
   }

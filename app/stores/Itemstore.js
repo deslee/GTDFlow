@@ -51,7 +51,8 @@ var Item = {
   location: ItemLocations.IN_LIST,
   project: '',
   notes: '',
-  dateAdded: moment()
+  dateAdded: moment(),
+  waitingFor: null
 };
 
 var Action = {
@@ -162,6 +163,7 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
     case ActionTypes.MOVE_ITEM_TO_WAITING_LIST:
       var item = ItemStore.findItemByName(action.name);
       item.location = ItemLocations.WAITING;
+      item.waitingFor = action.waiting_on;
       ItemStore.emitChange();
       break;
   }

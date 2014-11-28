@@ -23,6 +23,7 @@ var GfBar = React.createClass({
           <ul className="nav navbar-nav">
             <li><Link to="inList" onClick={this.clicked}>In List</Link></li>
             <li><Link to="nextActions" onClick={this.clicked}>Next Actions</Link></li>
+            <li><Link to="waiting" onClick={this.clicked}>Waiting</Link></li>
           </ul>
         </div>
       </div>

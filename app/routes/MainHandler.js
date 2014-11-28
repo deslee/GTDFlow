@@ -25,6 +25,9 @@ module.exports = React.createClass({
       case 'nextActions':
         title = 'Next Actions';
         break;
+      case 'waiting':
+        title = 'Waiting';
+        break;
       default:
         title = 'Null'
     }
