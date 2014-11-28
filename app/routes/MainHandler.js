@@ -26,11 +26,13 @@ module.exports = React.createClass({
         title = 'Null'
     }
 
-    return <TransitionGroup transitionName="route">
+    return <div>
       <GfBar title={title}></GfBar>
       <div className="gf-content">
-        <RouteHandler key={key} />
+        <TransitionGroup transitionName="route">
+          <RouteHandler key={key} />
+        </TransitionGroup>
       </div>
-    </TransitionGroup>
+    </div>
   }
 });
