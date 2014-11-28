@@ -14,13 +14,23 @@ module.exports = React.createClass({
     var route = this.getRoutes().reverse()[0];
     var key = JSON.stringify(route)+JSON.stringify(this.getParams());
 
-    return <TransitionGroup transitionName="route">
+    var title;
+    switch(this.getRoutes().reverse()[0].name) {
+      case 'inList':
+        title = 'In List';
+        break;
+      case 'processItem': // todo: just uncamelcase and separate by spaces.
+        title = 'Process Item';
+        break;
+      default:
+        title = 'Null'
+    }
 
-      <GfBar title="In List"></GfBar>
+    return <TransitionGroup transitionName="route">
+      <GfBar title={title}></GfBar>
       <div className="gf-content">
         <RouteHandler key={key} />
       </div>
-
     </TransitionGroup>
   }
-})
+});

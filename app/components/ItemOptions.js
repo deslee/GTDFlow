@@ -9,10 +9,10 @@ var ItemOptions = React.createClass({
     }
   },
   incubateClicked: function() {
-    console.log(this.props.item.title, 'incubate');
+    console.log(this.props.item.name, 'incubate');
   },
   moveClicked: function() {
-    console.log(this.props.item.title, 'moved');
+    console.log(this.props.item.name, 'move');
   },
   render: function() {
     return <div className="form-group">

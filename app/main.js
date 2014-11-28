@@ -11,7 +11,7 @@ var NotFoundRoute = Router.NotFoundRoute;
 var MainHandler = require('./routes/MainHandler');
 
 var ProcessItem = require('./routes/ProcessItem');
-var InList = require('./views/InList');
+var InList = require('./routes/InList');
 
 var dummyList = [
   {
@@ -37,9 +37,9 @@ dummyList.forEach(function(item) {
 
 
 var routes = <Route handler={MainHandler}>
-  <DefaultRoute handler={InList} name="inlist" />
+  <DefaultRoute handler={InList} name="inList" />
   <Route handler={ProcessItem} name="processItem" path="process/:itemName" />
-</Route>
+</Route>;
 
 Router.run(routes, function(Handler) {
   React.render(<Handler />, document.getElementById("gf-wrapper"));

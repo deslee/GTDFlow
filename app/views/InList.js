@@ -5,6 +5,7 @@ var MaterialMixin = require('../mixins/MaterialMixin');
 var Item = require('../components/Item');
 var ItemMixin = require('../mixins/ItemMixin');
 var ItemStore = require('../stores/Itemstore');
+var ItemActions = require('../actions/ItemActions');
 var _ = require('lodash');
 
 var InList = React.createClass({
@@ -12,6 +13,9 @@ var InList = React.createClass({
   componentWillMount: function() {
     ItemStore.addChangeListener(this.update);
     this.update();
+  },
+  componentWillUnmount: function() {
+    ItemStore.removeChangeListener(this.update);
   },
   update: function() {
     var data = ItemStore.getItems().map(function(item) {
@@ -23,7 +27,6 @@ var InList = React.createClass({
         selected: oldData ? oldData.selected : false
       }
     }.bind(this));
-    console.log(data);
     this.setState({
       data: data
     })
@@ -43,11 +46,22 @@ var InList = React.createClass({
       items: items
     })
   },
+  addItem: function() {
+    var element = this.refs.itemName.getDOMNode();
+    var itemName = element.value;
+    element.value = '';
+    ItemActions.add_item(itemName);
+  },
   render: function() {
     return <div>
+        <form>
+          <div className="form-group">
+            <input className="form-control floating-label col-xs-2" ref="itemName" type="text" placeholder="Add Item" />
+            <button type="submit" className="btn btn-primary" onClick={this.addItem}>Add Item</button>
+          </div>
+        </form>
+
         <div className="form-group">
-          <input className="form-control floating-label col-xs-2" id="focusedInput" type="text" placeholder="Add Item" />
-          <a href="javascript:void(0)" className="btn btn-primary ">Add Item</a>
           <div className=" checkbox">
             <label><input type="checkbox" onChange={this.selectAllCboxChanged}/> Select all</label>
           </div>
@@ -57,8 +71,10 @@ var InList = React.createClass({
         <h2>Items</h2>
 
         <div className="list-group">
-          {this.state.data.map(function(data, i) {
-            return <Item data={data} key={i}/>
+          {_.sortBy(this.state.data, function(data) {
+            return data.item.dateAdded.unix();
+          }).reverse().map(function(data, i) {
+            return <Item data={data} key={data.item.name}/>
           })}
         </div>
 

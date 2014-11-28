@@ -1,4 +1,6 @@
-var React = require("React");
+var React = require("react/addons");
+var Router = require('react-router');
+var Link = Router.Link;
 var MaterialMixin = require('../mixins/MaterialMixin');
 
 var GfBar = React.createClass({
@@ -15,8 +17,7 @@ var GfBar = React.createClass({
       </div>
       <div className="navbar-collapse collapse navbar-responsive-collapse">
         <ul className="nav navbar-nav">
-          <li className="active"><a href="javascript:void(0)">Active</a></li>
-          <li><a href="javascript:void(0)">Link</a></li>
+          <li><Link to="inList">In List</Link></li>
         </ul>
       </div>
     </div>

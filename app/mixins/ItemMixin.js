@@ -5,6 +5,9 @@ module.exports = {
     ItemStore.addChangeListener(this.itemStoreUpdate);
     this.itemStoreUpdate();
   },
+  componentWillUnmount: function() {
+    ItemStore.removeChangeListener(this.itemStoreUpdate);
+  },
   itemStoreUpdate: function() {
     var state = this.state;
     state.items = ItemStore.getItems();

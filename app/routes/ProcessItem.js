@@ -5,29 +5,38 @@ var React = require('react/addons');
 var Router = require('react-router');
 var TransitionGroup = React.addons.CSSTransitionGroup;
 var RouteHandler = Router.RouteHandler;
+var ItemStore = require('../stores/Itemstore');
+var _ = require('lodash');
+var NotFound = require('../views/NotFound');
 
 var ProcessItem = require('../views/ProcessItem');
-var ItemMixin = require('../mixins/ItemMixin');
-var ItemStore = require('../stores/Itemstore');
 
 module.exports = React.createClass({
-  mixins: [ Router.State, ItemMixin ],
+  mixins: [ Router.State ],
   componentWillMount: function() {
     ItemStore.addChangeListener(this.update);
     this.update();
   },
-  update: function() {
-    var item = ItemStore.findItemByName(this.state.itemName);
-    var state = this.state;
-    state.item = item;
-    this.setState(state)
+  componentWillUnmount: function() {
+    ItemStore.removeChangeListener(this.update);
   },
   getInitialState: function() {
     return {
       itemName: this.getParams().itemName
     }
   },
+  update: function() {
+    var state = this.state;
+    state.item = ItemStore.findItemByName(this.state.itemName);
+    this.setState(state);
+  },
   render: function() {
-    return <ProcessItem item={this.state.item}/>
+    if (this.state.item) {
+      return <ProcessItem itemName={this.state.itemName}/>
+    }
+    else {
+      return <NotFound><p>You tried to access an item called "{this.state.itemName}"</p></NotFound>
+    }
+
   }
-})
+});

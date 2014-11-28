@@ -7,6 +7,7 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var ItemLocations = gtdConstants.ItemLocations;
 var _ = require('lodash');
+var moment = require('moment');
 
 var ActionTypes = gtdConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
@@ -50,12 +51,14 @@ var Item = {
   location: ItemLocations.IN_LIST,
   project: '',
   notes: '',
+  dateAdded: moment()
 };
 
 var Action = {
   name: null,
 };
 
+console.log('registering itemstore to dispatcher')
 ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
   var action = payload.action;
   switch(action.type) {
@@ -74,13 +77,18 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
 
 
     case ActionTypes.ADD_ITEM:
+      if (!action.name) {
+        throw "Can't add an item with no name";
+      }
+
       if (ItemStore.findItemByName(action.name)) {
         throw "Can't have two items with the same name!";
       }
 
       ItemStore._items.push(assign({actions: []}, Item, {
         name: action.name,
-        location: ItemLocations.IN_LIST
+        location: ItemLocations.IN_LIST,
+        dateAdded: moment()
       }));
       ItemStore.emitChange();
       break;
@@ -94,6 +102,11 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
 
     case ActionTypes.ADD_ACTION_TO_ITEM:
       var item = ItemStore.findItemByName(action.name);
+
+      if (!action.action) {
+        throw "Can't add an action with no name";
+      }
+
       if (_.find(item.actions, function(a) {
           return a.name == action.action;
         })) {
@@ -103,10 +116,13 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
       item.actions.push(assign({}, Action, {
         name: action.action
       }));
+
+      ItemStore.emitChange();
       break;
 
     case ActionTypes.DELETE_ACTION_FROM_ITEM:
       var item = ItemStore.findItemByName(action.name);
+
       _.remove(item.actions, function(a) {
         return a.name == action.action;
       })

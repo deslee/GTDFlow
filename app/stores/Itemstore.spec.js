@@ -37,6 +37,12 @@ describe('Item store', function() {
       }).toThrow("Can't have two items with the same name!");
     });
 
+    it('should not allow you to add an item with no name', function() {
+      expect(function() {
+        ItemActions.add_item('');
+      }).toThrow("Can't add an item with no name");
+    });
+
     it('should have a location of IN_LIST', function() {
       expect(items[0].location).toBe(ItemLocations.IN_LIST);
     });
@@ -48,8 +54,11 @@ describe('Item store', function() {
 
     describe('an item with an action', function() {
       var action_name = "Check showtimes online";
-      it('should have one action in the item', function() {
+      beforeEach(function() {
         ItemActions.add_action(item_name, action_name);
+      });
+
+      it('should have one action in the item', function() {
         expect(items[0].actions.length).toBe(1);
         expect(items[0].actions[0].name).toBe(action_name);
       });
@@ -58,7 +67,13 @@ describe('Item store', function() {
         expect(function() {
           ItemActions.add_action(item_name, action_name);
         }).toThrow("Can't have two actions in an item with the same name!");
-      })
+      });
+
+      it('should not allow you to add an action with no name', function() {
+        expect(function() {
+          ItemActions.add_action(item_name, '');
+        }).toThrow("Can't add an action with no name");
+      });
 
       it('should let you remove an action from an item', function() {
         ItemActions.delete_action(item_name, action_name);
