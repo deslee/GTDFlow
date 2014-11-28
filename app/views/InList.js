@@ -37,13 +37,13 @@ var InList = React.createClass({
     }
   },
   selectAllCboxChanged: function(e) {
-    var items = this.state.data.map(function(data) {
+    var data = this.state.data.map(function(data) {
       data.selected = e.target.checked;
       return data;
     });
 
     this.setState({
-      items: items
+      data: data
     })
   },
   addItem: function() {
@@ -51,6 +51,17 @@ var InList = React.createClass({
     var itemName = element.value;
     element.value = '';
     ItemActions.add_item(itemName);
+  },
+  deleteItems: function() {
+    this.state.data.forEach(function(data) {
+      if (data.selected) {
+        ItemActions.delete_item(data.item.name);
+      }
+    })
+  },
+  itemSelectedChanged: function(data, selected) {
+    data.selected = selected;
+    this.setState(this.state);
   },
   render: function() {
     return <div>
@@ -74,11 +85,11 @@ var InList = React.createClass({
           {_.sortBy(this.state.data, function(data) {
             return data.item.dateAdded.unix();
           }).reverse().map(function(data, i) {
-            return <Item data={data} key={data.item.name}/>
-          })}
+            return <Item item={data.item} selected={data.selected} key={data.item.name} selectedChanged={this.itemSelectedChanged.bind(this, data)} />
+          }.bind(this))}
         </div>
 
-        <button className="btn btn-primary">Delete Selected</button>
+        <button className="btn btn-primary" onClick={this.deleteItems}>Delete Selected</button>
       </div>
   }
 });

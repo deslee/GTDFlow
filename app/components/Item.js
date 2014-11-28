@@ -7,25 +7,36 @@ var Link = Router.Link;
 var Item = React.createClass({
   mixins: [MaterialMixin],
   selectedChanged:function(e){
-    var data = this.state.data;
-    data.selected = !data.selected;
-    this.setState({
-      data: data
-    });
+    this.state.selected = !this.state.selected
+    this.setState(this.state);
+    if (this.props.selectedChanged) {
+      this.props.selectedChanged(this.state.selected);
+    }
   },
   getInitialState: function() {
     return {
-      data: this.props.data
+      item: this.props.item,
+      selected: this.props.selected
     }
+  },
+  componentWillReceiveProps: function(props) {
+    var state = this.state;
+    if (props.item.name != this.state.item.name) {
+      state.item = props.item;
+    }
+    else if (props.selected != this.state.selected) {
+      state.selected = props.selected;
+    }
+    this.setState(state);
   },
   render: function() {
     return <div className="list-group-item">
       <div className="row-action-primary checkbox">
-        <label><input type="checkbox" onChange={this.selectedChanged} checked={this.state.data.selected}/></label>
+        <label><input type="checkbox" onChange={this.selectedChanged} checked={this.state.selected}/></label>
       </div>
       <div className="row-content">
-        <h4 className="list-group-item-heading">{this.state.data.item.name}</h4>
-        <p className="list-group-item-text"><Link to="processItem" params={{itemName: this.state.data.item.name}}>Process item</Link></p>
+        <h4 className="list-group-item-heading">{this.state.item.name}</h4>
+        <p className="list-group-item-text"><Link to="processItem" params={{itemName: this.state.item.name}}>Process item</Link></p>
       </div>
     </div>;
   }
