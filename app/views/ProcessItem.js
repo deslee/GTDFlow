@@ -39,7 +39,6 @@ var ProcessItem = React.createClass({
       ItemActions.delete_action(item.name, actionName);
     }
   },
-
   render: function() {
     var item = this.state.item;
     var actionList = item? item.actions.map(function(action) {
@@ -62,7 +61,7 @@ var ProcessItem = React.createClass({
           {actionList}
         </ul>
 
-        <ItemOptions item={this.state.item} />
+        <ItemOptions item={this.state.item}/>
     </div>
   }
 });

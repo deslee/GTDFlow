@@ -12,6 +12,7 @@ var MainHandler = require('./routes/MainHandler');
 
 var ProcessItem = require('./routes/ProcessItem');
 var InList = require('./routes/InList');
+var NextActions = require('./routes/NextActions');
 
 var dummyList = [
   {
@@ -39,6 +40,7 @@ dummyList.forEach(function(item) {
 var routes = <Route handler={MainHandler}>
   <DefaultRoute handler={InList} name="inList" />
   <Route handler={ProcessItem} name="processItem" path="process/:itemName" />
+  <Route handler={NextActions} name="nextActions" path="nextActions" />
 </Route>;
 
 Router.run(routes, function(Handler) {

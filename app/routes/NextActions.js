@@ -3,12 +3,11 @@
  */
 var React = require('react/addons');
 var Router = require('react-router');
-var TransitionGroup = React.addons.CSSTransitionGroup;
-var RouteHandler = Router.RouteHandler;
 
 var InList = require('../views/InList');
 var ItemMixin = require('../mixins/ItemMixin');
 var ItemStore = require('../stores/Itemstore');
+var NextActions = require('../views/NextActions');
 
 module.exports = React.createClass({
   mixins: [ Router.State ],
@@ -19,6 +18,6 @@ module.exports = React.createClass({
     }
   },
   render: function() {
-    return <InList />
+    return <NextActions></NextActions>
   }
 });

@@ -20,7 +20,10 @@ module.exports = React.createClass({
         title = 'In List';
         break;
       case 'processItem': // todo: just uncamelcase and separate by spaces.
-        title = 'Process Item';
+        title = 'Item';
+        break;
+      case 'nextActions':
+        title = 'Next Actions';
         break;
       default:
         title = 'Null'

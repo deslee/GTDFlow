@@ -1,16 +1,10 @@
 var React = require('react/addons');
 
-var MaterialMixin = require('../mixins/MaterialMixin');
-
-var AddItem = require('../components/AddItem');
 var ItemList = require('../components/ItemList');
-
 var ItemStore = require('../stores/Itemstore');
-var ItemActions = require('../actions/ItemActions');
 var ItemLocations = require('../constants/gtdConstants').ItemLocations;
-var _ = require('lodash');
 
-var InList = React.createClass({
+module.exports = React.createClass({
   componentWillMount: function() {
     ItemStore.addChangeListener(this.update);
     this.update();
@@ -20,20 +14,17 @@ var InList = React.createClass({
   },
   getInitialState: function() {
     return {
-      InListItems: []
+      NextActionItems: []
     }
   },
   update: function() {
     this.setState({
-      InListItems: ItemStore.findItemsByLocation(ItemLocations.IN_LIST)
+      NextActionItems: ItemStore.findItemsByLocation(ItemLocations.NEXT_ACTIONS)
     });
   },
   render: function() {
     return <div>
-        <AddItem></AddItem>
-        <ItemList items={this.state.InListItems}></ItemList>
-      </div>
+      <ItemList items={this.state.NextActionItems}></ItemList>
+    </div>
   }
 });
-
-module.exports = InList;

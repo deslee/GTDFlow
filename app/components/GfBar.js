@@ -22,6 +22,7 @@ var GfBar = React.createClass({
         <div className="navbar-collapse collapse navbar-responsive-collapse">
           <ul className="nav navbar-nav">
             <li><Link to="inList" onClick={this.clicked}>In List</Link></li>
+            <li><Link to="nextActions" onClick={this.clicked}>Next Actions</Link></li>
           </ul>
         </div>
       </div>
