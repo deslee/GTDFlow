@@ -48,9 +48,11 @@ module.exports = React.createClass({
     data.selected = selected;
     this.setState(this.state);
   },
+  componentDidMount: function() {
+  },
   render: function() {
     if (this.state.data.length > 0) {
-      return <div>
+      return <div className="">
         <div className="form-group">
           <div className=" checkbox">
             <label>

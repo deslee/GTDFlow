@@ -29,6 +29,8 @@ var Item = React.createClass({
     }
     this.setState(state);
   },
+  componentDidMount: function() {
+  },
   render: function() {
     var itemText;
     switch(this.state.item.location) {
@@ -42,7 +44,7 @@ var Item = React.createClass({
         itemText = <div>Waiting for: {this.state.item.waitingFor}<br /><Link to="processItem" params={{itemName: this.state.item.name}}>Modify</Link></div>;
     }
 
-    return <div className="list-group-item">
+    return <div className="list-group-item gf-item">
       <div className="row-action-primary checkbox">
         <label><input type="checkbox" onChange={this.selectedChanged} checked={this.state.selected}/></label>
       </div>

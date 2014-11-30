@@ -14,7 +14,7 @@ module.exports = React.createClass({
     var route = this.getRoutes().reverse()[0];
     var key = JSON.stringify(route)+JSON.stringify(this.getParams());
 
-    var title;
+    /*var title;
     switch(this.getRoutes().reverse()[0].name) {
       case 'inList':
         title = 'In List';
@@ -30,12 +30,12 @@ module.exports = React.createClass({
         break;
       default:
         title = 'Null'
-    }
+    }*/
 
     return <div>
-      <GfBar title={title}></GfBar>
+      <GfBar title="GTDFlow"></GfBar>
       <div className="gf-content">
-        <TransitionGroup transitionName="route">
+        <TransitionGroup transitionName="route" transitionLeave={false}>
           <RouteHandler key={key} />
         </TransitionGroup>
       </div>

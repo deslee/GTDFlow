@@ -1,5 +1,7 @@
 module.exports = {
   componentDidMount: function() {
-    $.material.init();
+    $.material.checkbox();
+    $.material.input();
+    $.material.radio();
   }
 };

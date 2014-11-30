@@ -6,7 +6,9 @@ var MaterialMixin = require('../mixins/MaterialMixin');
 var GfBar = React.createClass({
   mixins: [MaterialMixin],
   clicked: function() {
-    $('.navbar-collapse').collapse('hide');
+    $('.navbar .navbar-collapse.collapse.in').collapse('hide')
+  },
+  componentWillMount: function() {
   },
   render: function() {
     return <div className="navbar navbar-default navbar-fixed-top">
