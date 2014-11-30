@@ -1,4 +1,6 @@
-# Concept of Operations
+# Project Elicitation Document
+
+Last Modified: November 28, 2014 at 10:52pm CST
 
 ## Project Objectives
 
@@ -7,9 +9,7 @@ Implement a minimal, reliable and usable functional web application that provide
 ### Objective Definitions
 
 1. The application will be **minimal**. It will be as unopinionated as possible, and follow the GTD model as strictly as possible for maximum flexibility.
-
 2. The application will be **reliable**. Data will be persisted using Google Drive and Google Calendar. Google is considered a reliable services, and using Google API eliminates the need to write our own backend.
-
 3. The application will be **usable**. Users will be uninhibited by UI distractions, and data will be presented as cleanly and unobtrusively as possible. The goal of the system is to make it as easy as possible to collect *tasks*, *ideas*, and *projects*. The application will also provide "hints" that instruct the User of how to best use the GTD framework. (For example, in processing the In list, the application may hint to the User that they should consider doing the next action if it takes less than 2 minutes to do it.)
 
 ### Domain Definitions
@@ -54,15 +54,9 @@ This is the most important list in the application. The purpose of this list is 
 
 #### Processing the In List
 
-The application will make it simple and trivial for the User to process the In List.
+All items added to the "In" list must be processed. Processing is defined as placing the item in another list that is not the "In" list. The system shall remind the user that items are in the "In" list until no items further exist. Items should be placed into the "Someday / Maybe List", "Next List", "Delegate List" or "Incubate List".
 
-According to the GTD framework, the User will be encouraged to list the next *physical* and *visible* Action needed to make progress on the task. If the User does so, then the item is `Actionable`.
-
-After processing, the user may choose to promote the item to either the *Next Actions List* (which is a list of Actions that the User wants to "do ASAP), or the *Someday / Maybe List* (an auxiliary list of Actions that the User does not want in their Next Actions List)
-
-If the Action is not immediately "do-able", then the User must **Delegate** it (i.e., instruct the application to remind the User about the item in the distant future).
-
-The user may also choose to `Incubate` the item. This puts the item "on hold" for a specified amount of time, in which the item will re-appear in the In List.
+When items are placed in incubation the user must select when to be reminded again.
 
 ### The Next Actions List
 
