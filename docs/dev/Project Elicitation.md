@@ -56,11 +56,7 @@ This is the most important list in the application. The purpose of this list is 
 
 All items added to the "In" list must be processed. Processing is defined as placing the item in another list that is not the "In" list. The system shall remind the user that items are in the "In" list until no items further exist. Items should be placed into the "Someday / Maybe List", "Next List", "Delegate List" or "Incubate List".
 
-However before the Item can be processed it must be "Actionable". The system shall ensure that all items define at least one action. If the item is not actionable then it can be placed on holder in the Incubate list.
-
 When items are placed in incubation the user must select when to be reminded again.
-
-Items may not be able to be decomposed into actions but are themselves actionable, in which case they can be directly moved to the other lists.
 
 ### The Next Actions List
 
