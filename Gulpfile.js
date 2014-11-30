@@ -121,6 +121,11 @@ gulp.task('serve', function() {
     }));
 });
 
+gulp.task('production', function(cb) {
+  build_options.isDev = false;
+  runSequence('main', cb);
+});
+
 gulp.task('watch', function() {
   var watch = function(path, task) {
     gulp.watch(path, function(events) {
