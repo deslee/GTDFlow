@@ -148,6 +148,13 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
       ItemStore.emitChange();
       break;
 
+
+    case ActionTypes.MOVE_ITEM_TO_IN_LIST:
+      var item = ItemStore.findItemByName(action.name);
+      item.location = ItemLocations.IN_LIST;
+      ItemStore.emitChange();
+      break;
+
     case ActionTypes.MOVE_ITEM_TO_REFERENCES_LIST:
       var item = ItemStore.findItemByName(action.name);
       item.location = ItemLocations.REFERENCES;

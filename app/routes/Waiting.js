@@ -4,10 +4,10 @@
 var React = require('react/addons');
 var Router = require('react-router');
 
-var InList = require('../views/InList');
+var InList = require('./InList');
 var ItemMixin = require('../mixins/ItemMixin');
 var ItemStore = require('../stores/Itemstore');
-var Waiting = require('../views/Waiting');
+var Waiting = require('../controller-views/Waiting');
 
 module.exports = React.createClass({
   mixins: [ Router.State ],

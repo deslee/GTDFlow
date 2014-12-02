@@ -6,7 +6,7 @@ var Router = require('react-router');
 var TransitionGroup = React.addons.CSSTransitionGroup;
 var RouteHandler = Router.RouteHandler;
 
-var InList = require('../views/InList');
+var InList = require('../controller-views/InList');
 var ItemMixin = require('../mixins/ItemMixin');
 var ItemStore = require('../stores/Itemstore');
 

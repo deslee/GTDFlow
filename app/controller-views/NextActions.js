@@ -14,17 +14,17 @@ module.exports = React.createClass({
   },
   getInitialState: function() {
     return {
-      WaitingItems: []
+      NextActionItems: []
     }
   },
   update: function() {
     this.setState({
-      WaitingItems: ItemStore.findItemsByLocation(ItemLocations.WAITING)
+      NextActionItems: ItemStore.findItemsByLocation(ItemLocations.NEXT_ACTIONS)
     });
   },
   render: function() {
     return <div>
-      <ItemList items={this.state.WaitingItems}></ItemList>
+      <ItemList items={this.state.NextActionItems} title="Next Action Items"></ItemList>
     </div>
   }
 });

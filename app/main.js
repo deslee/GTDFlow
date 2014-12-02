@@ -50,6 +50,6 @@ var routes = <Route handler={MainHandler}>
   <Route handler={Waiting} name="waiting" path="waiting" />
 </Route>;
 
-Router.run(routes, function(Handler) {
+Router.run(routes, function routerHandler(Handler) {
   React.render(<Handler />, document.getElementById("gf-wrapper"));
 })

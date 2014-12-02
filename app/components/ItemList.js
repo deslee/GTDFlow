@@ -60,7 +60,7 @@ module.exports = React.createClass({
             Select all</label>
           </div>
         </div>
-        <h2>Items</h2>
+        <h2>{this.props.title ? this.props.title : "Items"}</h2>
         <div className="list-group">
           {_.sortBy(this.state.data, function (data) {
             return data.item.dateAdded.unix();

@@ -7,9 +7,9 @@ var TransitionGroup = React.addons.CSSTransitionGroup;
 var RouteHandler = Router.RouteHandler;
 var ItemStore = require('../stores/Itemstore');
 var _ = require('lodash');
-var NotFound = require('../views/NotFound');
+var NotFound = require('../controller-views/NotFound');
 
-var ProcessItem = require('../views/ProcessItem');
+var ProcessItem = require('../controller-views/ProcessItem');
 
 module.exports = React.createClass({
   mixins: [ Router.State ],

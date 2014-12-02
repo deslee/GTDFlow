@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require("react/addons");
 var ItemActions = require('../actions/ItemActions');
 
 module.exports = React.createClass({
