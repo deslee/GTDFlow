@@ -13,7 +13,7 @@ var ActionTypes = gtdConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var ItemStore = assign({}, EventEmitter.prototype, {
-  _items: [],
+  _items: {},
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -24,25 +24,34 @@ var ItemStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
   reset: function() {
-    this._items = [];
+    this._items = {};
   },
   getItems: function() {
-    return this._items;
+    return _.keys(this._items)
+      .map(function(key) {
+        return this._items[key];
+      }.bind(this));
   },
   findItemByName: function(name) {
-    return _.find(this._items, function(item) {
-      return item.name == name
-    });
+    return this._items[name];
   },
   findItemsByProjectName: function(project) {
-    return _.filter(this._items, function(item) {
-      return item.project == project;
-    })
+    return _.keys(this._items)
+      .filter(function(key) {
+        return this._items[key].project == project
+      }.bind(this))
+      .map(function(key) {
+        return this._items[key];
+      }.bind(this));
   },
   findItemsByLocation: function(location) {
-    return _.filter(this._items, function(item) {
-      return item.location == location;
-    })
+    return _.keys(this._items)
+      .filter(function(key) {
+        return this._items[key].location == location
+      }.bind(this))
+      .map(function(key) {
+        return this._items[key];
+      }.bind(this));
   }
 });
 
@@ -72,7 +81,7 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
       if (ItemStore.findItemByName(action.name)) {
         throw "Can't have two items with the same name!";
       }
-      ItemStore._items.push(assign({actions: []}, Item, action.item));
+      ItemStore._items[action.item.name] = assign({actions: []}, Item, action.item);
       ItemStore.emitChange();
       break;
 
@@ -86,18 +95,18 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
         throw "Can't have two items with the same name!";
       }
 
-      ItemStore._items.push(assign({actions: []}, Item, {
+
+      ItemStore._items[action.name] = assign({actions: []}, Item, {
         name: action.name,
         location: ItemLocations.IN_LIST,
         dateAdded: moment()
-      }));
+      });
+
       ItemStore.emitChange();
       break;
 
     case ActionTypes.DELETE_ITEM:
-      _.remove(ItemStore._items, function(item) {
-        return item.name == action.name;
-      });
+      delete ItemStore._items[action.name];
       ItemStore.emitChange();
       break;
 
