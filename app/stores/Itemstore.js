@@ -98,7 +98,7 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
 
       ItemStore._items[action.name] = assign({actions: []}, Item, {
         name: action.name,
-        location: ItemLocations.IN_LIST,
+        location: action.location,
         dateAdded: moment()
       });
 

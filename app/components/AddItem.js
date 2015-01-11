@@ -6,7 +6,7 @@ module.exports = React.createClass({
     var element = this.refs.itemName.getDOMNode();
     var itemName = element.value;
     element.value = '';
-    ItemActions.add_item(itemName);
+    ItemActions.add_item(itemName, this.props.location);
   },
   render: function() {
     return <form>

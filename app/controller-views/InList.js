@@ -30,7 +30,7 @@ var InList = React.createClass({
   },
   render: function() {
     return <div>
-        <AddItem></AddItem>
+        <AddItem location={ItemLocations.IN_LIST}></AddItem>
         <ItemList items={this.state.InListItems} title="In List Items"></ItemList>
       </div>
   }

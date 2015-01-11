@@ -4,7 +4,7 @@
 
 describe('Item store', function() {
   var ItemStore, ItemActions, ItemLocations, gtdDispatcher, items;
-  ItemStore = require('./itemstore.js');
+  ItemStore = require('./Itemstore.js');
   gtdDispatcher = require('../dispatchers/gtdDispatcher');
   ItemActions = require('../actions/ItemActions');
   ItemLocations = require('../constants/gtdConstants').ItemLocations;
@@ -24,7 +24,7 @@ describe('Item store', function() {
   describe('With one item', function() {
     var item_name = 'See Interstella';
     beforeEach(function() {
-      ItemActions.add_item(item_name);
+      ItemActions.add_item(item_name, ItemLocations.IN_LIST);
     });
 
     it('should have one item', function() {

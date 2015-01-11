@@ -94,10 +94,11 @@ module.exports = {
     })
   },
 
-  add_item: function(name) {
+  add_item: function(name, location) {
     gtdDispatcher.handleViewAction({
       type: ActionTypes.ADD_ITEM,
-      name:name
+      name:name,
+      location:location
     })
   },
 
