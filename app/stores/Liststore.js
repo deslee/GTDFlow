@@ -3,6 +3,7 @@
  */
 var gtdDispatcher = require('../dispatchers/gtdDispatcher')
 var gtdConstants = require('../constants/gtdConstants');
+var ActionTypes = gtdConstants.ActionTypes;
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var _ = require('lodash');
@@ -21,10 +22,10 @@ var ListStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
   reset: function() {
-    this._items = {};
+    this._lists = {};
   },
   getLists: function() {
-    return _lists;
+    return this._lists;
   }
 });
 
@@ -37,6 +38,14 @@ var List = {
 ListStore.dispatchToken = gtdDispatcher.register(function(payload) {
   var action = payload.action;
   switch(action.type) {
+    case ActionTypes.ADD_LIST:
+      ListStore._lists[action.name] = assign({}, List, {
+        name: action.name
+      });
+          break;
+    case ActionTypes.DELETE_LIST:
+      delete ListStore._lists[action.name];
+          break;
 
   }
 });

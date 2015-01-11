@@ -8,11 +8,11 @@ var Link = Router.Link;
 var DefaultRoute = Router.DefaultRoute;
 var NotFoundRoute = Router.NotFoundRoute;
 var MainHandler = require('./routes/MainHandler');
-var InList = require('./routes/InList');
+var List = require('./routes/List');
 
 
 var routes = <Route handler={MainHandler}>
-  <DefaultRoute handler={InList} name="inList" />
+  <Route name="list" path="/:listName" handler={List} />
 </Route>;
 
 Router.run(routes, function routerHandler(Handler) {

@@ -24,6 +24,7 @@ module.exports = {
     /*lists*/
 
     ADD_LIST: null,
+    DELETE_LIST: null
 
   }),
 

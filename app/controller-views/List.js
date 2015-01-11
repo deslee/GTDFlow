@@ -8,7 +8,7 @@ var ItemList = require('../components/ItemList');
 var ItemStore = require('../stores/Itemstore');
 var _ = require('lodash');
 
-var InList = React.createClass({
+var List = React.createClass({
   componentWillMount: function() {
     ItemStore.addChangeListener(this.update);
     this.update();
@@ -18,20 +18,20 @@ var InList = React.createClass({
   },
   getInitialState: function() {
     return {
-      InListItems: []
+      Items: []
     }
   },
   update: function() {
     this.setState({
-      InListItems: ItemStore.findItemsByLocation(ItemLocations.IN_LIST)
+      Items: ItemStore.findItemsByLocation("In list")
     });
   },
   render: function() {
     return <div>
-        <AddItem location={ItemLocations.IN_LIST}></AddItem>
-        <ItemList items={this.state.InListItems} title="In List Items"></ItemList>
+        <AddItem location="In list"></AddItem>
+        <ItemList items={this.state.Items} title="In List Items"></ItemList>
       </div>
   }
 });
 
-module.exports = InList;
+module.exports = List;

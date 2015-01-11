@@ -6,7 +6,7 @@ var Router = require('react-router');
 var TransitionGroup = React.addons.CSSTransitionGroup;
 var RouteHandler = Router.RouteHandler;
 
-var InList = require('../controller-views/InList');
+var List = require('../controller-views/List');
 var ItemMixin = require('../mixins/ItemMixin');
 var ItemStore = require('../stores/Itemstore');
 
@@ -19,6 +19,6 @@ module.exports = React.createClass({
     }
   },
   render: function() {
-    return <InList />
+    return <List />
   }
 });
