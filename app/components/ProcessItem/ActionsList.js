@@ -7,7 +7,7 @@ module.exports = React.createClass({
     var actionName = e.target.getAttribute('data-action-name');
 
     if (item && actionName) {
-      ItemActions.delete_action(item.name, actionName);
+      ItemActions.DELETE_ACTION_FROM_ITEM(item.name, actionName);
     }
   },
   render: function() {

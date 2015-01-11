@@ -10,7 +10,7 @@ module.exports = React.createClass({
   deleteItems: function() {
     this.state.data.forEach(function(data) {
       if (data.selected) {
-        ItemActions.delete_item(data.item.name);
+        ItemActions.DELETE_ITEM(data.item.name);
       }
     })
   },

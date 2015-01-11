@@ -1,6 +1,5 @@
 var React = require("react/addons");
 var MaterialMixin = require('../mixins/MaterialMixin');
-var ItemLocation = require('../constants/gtdConstants').ItemLocations;
 var Router = require('react-router');
 var Link = Router.Link;
 

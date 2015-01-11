@@ -3,13 +3,14 @@
  */
 var gtdDispatcher = require('../dispatchers/gtdDispatcher')
 var gtdConstants = require('../constants/gtdConstants');
+var ActionTypes = gtdConstants.ActionTypes;
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-var ItemLocations = gtdConstants.ItemLocations;
 var _ = require('lodash');
 var moment = require('moment');
+var keyMirror = require('keymirror')
 
-var ActionTypes = gtdConstants.ActionTypes;
+var ItemActions = require('../actions/ItemActions');
 var CHANGE_EVENT = 'change';
 
 var ItemStore = assign({}, EventEmitter.prototype, {
@@ -57,7 +58,7 @@ var ItemStore = assign({}, EventEmitter.prototype, {
 
 var Item = {
   name: null,
-  location: ItemLocations.IN_LIST,
+  location: null,
   project: '',
   notes: '',
   dateAdded: moment(),
@@ -151,35 +152,9 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
       ItemStore.emitChange();
       break;
 
-    case ActionTypes.MOVE_ITEM_TO_NEXT_ACTIONS_LIST:
+    case ActionTypes.MOVE_ITEM:
       var item = ItemStore.findItemByName(action.name);
-      item.location = ItemLocations.NEXT_ACTIONS;
-      ItemStore.emitChange();
-      break;
-
-
-    case ActionTypes.MOVE_ITEM_TO_IN_LIST:
-      var item = ItemStore.findItemByName(action.name);
-      item.location = ItemLocations.IN_LIST;
-      ItemStore.emitChange();
-      break;
-
-    case ActionTypes.MOVE_ITEM_TO_REFERENCES_LIST:
-      var item = ItemStore.findItemByName(action.name);
-      item.location = ItemLocations.REFERENCES;
-      ItemStore.emitChange();
-      break;
-
-    case ActionTypes.MOVE_ITEM_TO_SOMEDAY_MAYBE_LIST:
-      var item = ItemStore.findItemByName(action.name);
-      item.location = ItemLocations.SOMEDAY_MAYBE;
-      ItemStore.emitChange();
-      break;
-
-    case ActionTypes.MOVE_ITEM_TO_WAITING_LIST:
-      var item = ItemStore.findItemByName(action.name);
-      item.location = ItemLocations.WAITING;
-      item.waitingFor = action.waiting_on;
+      item.location = action.location;
       ItemStore.emitChange();
       break;
   }

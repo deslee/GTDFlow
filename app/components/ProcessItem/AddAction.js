@@ -8,7 +8,7 @@ module.exports = React.createClass({
     var actionName = element.value;
     element.value = '';
     if (item) {
-      ItemActions.add_action(this.props.item.name, actionName);
+      ItemActions.ADD_ACTION_TO_ITEM(this.props.item.name, actionName);
     }
   },
   render: function() {

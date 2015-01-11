@@ -34,11 +34,7 @@ var ItemOptions = React.createClass({
 
       <Modal id={'moveModal'} title="Move Item" show={this.state.showMoveModal} onClose={this.closeModal.bind(this, 'showMoveModal')}>
         <p>Choose where you would like to move this item to</p>
-        <button className="btn btn-primary btn-sm" onClick={this.moveModalItemClicked.bind(this, ItemActions.move_in_list)}>In List</button><br />
-        <button className="btn btn-primary btn-sm" onClick={this.moveModalItemClicked.bind(this, ItemActions.move_next_actions)}>Next Actions</button><br />
-        <button className="btn btn-primary btn-sm" onClick={this.moveModalItemClicked.bind(this, ItemActions.move_someday_maybe)}>Someday / Maybe</button><br />
-        <button className="btn btn-primary btn-sm" onClick={this.moveModalItemClicked.bind(this, ItemActions.move_waiting)}>Waiting</button><br />
-        <button className="btn btn-primary btn-sm" onClick={this.moveModalItemClicked.bind(this, ItemActions.move_references)}>References</button>
+        <button className="btn btn-primary btn-sm" onClick={this.moveModalItemClicked.bind(this, ItemActions.MOVE_ITEM, 'In List')}>In List</button><br />
       </Modal>
     </div>
   }

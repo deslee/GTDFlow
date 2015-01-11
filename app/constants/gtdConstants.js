@@ -18,18 +18,25 @@ module.exports = {
     ADD_ACTION_TO_ITEM: null,
     DELETE_ACTION_FROM_ITEM: null,
 
-    INITIALIZE_ITEM: null
+    INITIALIZE_ITEM: null,
+
+
+    /*lists*/
+
+    ADD_LIST: null,
+
   }),
 
   PayloadSources: keyMirror({
     VIEW_ACTION: null
   }),
 
-  ItemLocations: keyMirror({
-    IN_LIST: null,
-    NEXT_ACTIONS: null,
-    SOMEDAY_MAYBE: null,
-    WAITING: null,
-    REFERENCES: null
+  ListWidgets: keyMirror({
+    QUICK_ADD: null
+  }),
+
+  ItemWidgets: keyMirror({
+    NOTES: null,
+    MOVE_TO_LIST: null,
   })
 };
