@@ -32,16 +32,7 @@ var Item = React.createClass({
   },
   render: function() {
     var itemText;
-    switch(this.state.item.location) {
-      case ItemLocation.IN_LIST:
-        itemText = <Link to="processItem" params={{itemName: this.state.item.name}}>Process</Link>;
-        break;
-      case ItemLocation.NEXT_ACTIONS:
-        itemText = <Link to="processItem" params={{itemName: this.state.item.name}}>Modify</Link>;
-        break;
-      case ItemLocation.WAITING:
-        itemText = <div>Waiting for: {this.state.item.waitingFor}<br /><Link to="processItem" params={{itemName: this.state.item.name}}>Modify</Link></div>;
-    }
+    itemText = 'TODO' //  <Link to="processItem" params={{itemName: this.state.item.name}}>Process</Link>;
 
     return <div className="list-group-item gf-item">
       <div className="row-action-primary checkbox">

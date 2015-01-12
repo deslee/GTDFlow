@@ -23,7 +23,7 @@ dummyListList.forEach(function(list) {
 })
 
 var routes = <Route handler={MainHandler}>
-  <Route name="list" path="/:listName" handler={List} />
+<Route name="list" path="/:listName" handler={List} />
 </Route>;
 
 Router.run(routes, function routerHandler(Handler) {
