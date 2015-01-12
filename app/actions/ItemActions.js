@@ -11,10 +11,10 @@ module.exports = {
       type: ActionTypes.TEST_ACTION
     });
   },
-  DELETE_ITEM: function(name) {
+  DELETE_ITEM: function(id) {
     gtdDispatcher.handleViewAction({
       type: ActionTypes.DELETE_ITEM,
-      name: name
+      id: id
     })
   },
   ADD_ITEM: function(name, location) {
@@ -25,39 +25,39 @@ module.exports = {
     })
   },
 
-  MOVE_ITEM: function(name, list) {
+  MOVE_ITEM: function(id, list) {
     gtdDispatcher.handleViewAction({
       type: ActionTypes.MOVE_ITEM,
-      name: name,
+      id: id,
       location: list
     })
   },
 
-  SET_ITEM_PROJECT: function(name, project) {
+  SET_ITEM_PROJECT: function(id, project) {
     gtdDispatcher.handleViewAction({
       type: ActionTypes.SET_ITEM_PROJECT,
-      name: name,
+      id: id,
       project: project
     })
   },
-  SET_ITEM_NOTES: function(name, notes) {
+  SET_ITEM_NOTES: function(id, notes) {
     gtdDispatcher.handleViewAction({
       type: ActionTypes.SET_ITEM_NOTES,
-      name: name,
+      id: id,
       notes: notes
     })
   },
-  ADD_ACTION_TO_ITEM: function(name, action) {
+  ADD_ACTION_TO_ITEM: function(id, action) {
     gtdDispatcher.handleViewAction({
       type: ActionTypes.ADD_ACTION_TO_ITEM,
-      name: name,
+      id: id,
       action: action
     })
   },
-  DELETE_ACTION_FROM_ITEM: function(name, action) {
+  DELETE_ACTION_FROM_ITEM: function(id, action) {
     gtdDispatcher.handleViewAction({
       type: ActionTypes.DELETE_ACTION_FROM_ITEM,
-      name: name,
+      id: id,
       action: action
     })
   },

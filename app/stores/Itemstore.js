@@ -41,6 +41,11 @@ var ItemStore = assign({}, EventEmitter.prototype, {
     })
     //return this._items[name];
   },
+  findItemById: function(id) {
+    return _.find(this._items, function(item) {
+      return item.id == id;
+    })
+  },
   findItemsByProjectName: function(project) {
     return _.where(this._items, function(item) {
       return item.project == project
@@ -125,14 +130,14 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
 
     case ActionTypes.DELETE_ITEM:
       _.remove(ItemStore._items, function(item) {
-        return item.name == action.name
+        return item.id == action.id
       })
       //delete ItemStore._items[action.name];
       ItemStore.emitChange();
       break;
 
     case ActionTypes.ADD_ACTION_TO_ITEM:
-      var item = ItemStore.findItemByName(action.name);
+      var item = ItemStore.findItemById(action.id);
 
       if (!action.action) {
         throw "Can't add an action with no name";
@@ -152,7 +157,7 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.DELETE_ACTION_FROM_ITEM:
-      var item = ItemStore.findItemByName(action.name);
+      var item = ItemStore.findItemById(action.id);
 
       _.remove(item.actions, function(a) {
         return a.name == action.action;
@@ -161,19 +166,19 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.SET_ITEM_PROJECT:
-      var item = ItemStore.findItemByName(action.name);
+      var item = ItemStore.findItemById(action.id);
       item.project = action.project;
       ItemStore.emitChange();
       break;
 
     case ActionTypes.SET_ITEM_NOTES:
-      var item = ItemStore.findItemByName(action.name);
+      var item = ItemStore.findItemById(action.id);
       item.notes = action.notes;
       ItemStore.emitChange();
       break;
 
     case ActionTypes.MOVE_ITEM:
-      var item = ItemStore.findItemByName(action.name);
+      var item = ItemStore.findItemById(action.id);
       item.location = action.location;
       ItemStore.emitChange();
       break;
