@@ -19,6 +19,6 @@ module.exports = React.createClass({
     }
   },
   render: function() {
-    return <List />
+    return <List name={this.getParams().listName}/>
   }
 });

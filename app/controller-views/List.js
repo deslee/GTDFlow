@@ -23,13 +23,13 @@ var List = React.createClass({
   },
   update: function() {
     this.setState({
-      Items: ItemStore.findItemsByLocation("In list")
+      Items: ItemStore.findItemsByLocation(this.props.name)
     });
   },
   render: function() {
     return <div>
-        <AddItem location="In list"></AddItem>
-        <ItemList items={this.state.Items} title="In List Items"></ItemList>
+        <AddItem location={this.props.name}></AddItem>
+        <ItemList items={this.state.Items} title={this.props.name}></ItemList>
       </div>
   }
 });

@@ -42,11 +42,12 @@ ListStore.dispatchToken = gtdDispatcher.register(function(payload) {
       ListStore._lists[action.name] = assign({}, List, {
         name: action.name
       });
+      ListStore.emitChange();
           break;
     case ActionTypes.DELETE_LIST:
       delete ListStore._lists[action.name];
+      ListStore.emitChange();
           break;
-
   }
 });
 

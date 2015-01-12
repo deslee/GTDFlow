@@ -10,6 +10,17 @@ var NotFoundRoute = Router.NotFoundRoute;
 var MainHandler = require('./routes/MainHandler');
 var List = require('./routes/List');
 
+var ListActions = require('./actions/ListActions')
+
+var dummyListList = [
+  {
+    name: 'In List (test)'
+  }
+]
+
+dummyListList.forEach(function(list) {
+  ListActions.ADD_LIST(list.name);
+})
 
 var routes = <Route handler={MainHandler}>
   <Route name="list" path="/:listName" handler={List} />

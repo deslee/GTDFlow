@@ -69,7 +69,6 @@ var Action = {
   name: null,
 };
 
-console.log('registering itemstore to dispatcher')
 ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
   var action = payload.action;
   switch(action.type) {
