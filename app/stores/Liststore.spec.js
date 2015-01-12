@@ -9,7 +9,7 @@ describe('List store', function() {
   ListActions = require('../actions/ListActions');
 
   ListStore.addChangeListener(function () {
-    lists = ListStore.getItems();
+    lists = ListStore.getLists();
   });
 
   beforeEach(function () {
