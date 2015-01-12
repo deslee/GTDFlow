@@ -51,13 +51,15 @@ module.exports = React.createClass({
   componentDidMount: function() {
   },
   render: function() {
+    console.log(this.state.data)
     if (this.state.data.length > 0) {
       return <div className="">
         <div className="form-group">
           <div className=" checkbox">
             <label>
               <input type="checkbox" onChange={this.selectAllCboxChanged}/>
-            Select all</label>
+              Select all
+            </label>
           </div>
         </div>
         <h2>{this.props.title ? this.props.title : "Items"}</h2>
@@ -65,7 +67,7 @@ module.exports = React.createClass({
           {_.sortBy(this.state.data, function (data) {
             return data.item.dateAdded.unix();
           }).reverse().map(function (data, i) {
-            return <Item item={data.item} selected={data.selected} key={data.item.name} selectedChanged={this.itemSelectedChanged.bind(this, data)} />
+            return <Item item={data.item} selected={data.selected} key={data.item.id} selectedChanged={this.itemSelectedChanged.bind(this, data)} />
           }.bind(this))}
         </div>
         <button className="btn btn-primary" onClick={this.deleteItems}>Delete Selected</button>

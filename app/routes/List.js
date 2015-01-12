@@ -10,6 +10,8 @@ var List = require('../controller-views/List');
 var ItemMixin = require('../mixins/ItemMixin');
 var ItemStore = require('../stores/Itemstore');
 
+var ListStore = require('../stores/Liststore');
+
 module.exports = React.createClass({
   mixins: [ Router.State ],
   componentWillMount: function() {
@@ -19,6 +21,7 @@ module.exports = React.createClass({
     }
   },
   render: function() {
-    return <List name={this.getParams().listName}/>
+    var list = ListStore.getListByName(this.getParams().listName);
+    return <List list={list} />
   }
 });

@@ -30,10 +30,9 @@ describe('Item store', function() {
       expect(items.length).toBe(1);
     });
 
-    it('should not allow you to have two items with the same name', function() {
-      expect(function() {
-        ItemActions.ADD_ITEM(item_name);
-      }).toThrow("Can't have two items with the same name!");
+    it('should allow you to have two items with the same name', function() {
+      ItemActions.ADD_ITEM(item_name);
+      expect(items.length).toBe(2);
     });
 
     it('should not allow you to add an item with no name', function() {

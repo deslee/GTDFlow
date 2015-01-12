@@ -24,7 +24,8 @@ module.exports = {
     /*lists*/
 
     ADD_LIST: null,
-    DELETE_LIST: null
+    DELETE_LIST: null,
+    ADD_WIDGET_TO_LIST: null
 
   }),
 

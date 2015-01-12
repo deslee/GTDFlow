@@ -26,6 +26,9 @@ var ListStore = assign({}, EventEmitter.prototype, {
   },
   getLists: function() {
     return this._lists;
+  },
+  getListByName: function(name) {
+    return this._lists[name];
   }
 });
 
@@ -46,6 +49,9 @@ ListStore.dispatchToken = gtdDispatcher.register(function(payload) {
           break;
     case ActionTypes.DELETE_LIST:
       delete ListStore._lists[action.name];
+      ListStore.emitChange();
+          break;
+    case ActionTypes.ADD_WIDGET_TO_LIST:
       ListStore.emitChange();
           break;
   }

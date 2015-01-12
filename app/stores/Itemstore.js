@@ -9,12 +9,13 @@ var assign = require('object-assign');
 var _ = require('lodash');
 var moment = require('moment');
 var keyMirror = require('keymirror')
+var uuid = require('node-uuid');
 
 var ItemActions = require('../actions/ItemActions');
 var CHANGE_EVENT = 'change';
 
 var ItemStore = assign({}, EventEmitter.prototype, {
-  _items: {},
+  _items: [],
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -25,38 +26,50 @@ var ItemStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
   reset: function() {
-    this._items = {};
+    this._items = [];
   },
   getItems: function() {
-    return _.keys(this._items)
-      .map(function(key) {
-        return this._items[key];
-      }.bind(this));
+    return this._items
+//    return _.keys(this._items)
+//      .map(function(key) {
+//        return this._items[key];
+//      }.bind(this));
   },
   findItemByName: function(name) {
-    return this._items[name];
+    return _.find(this._items, function(item) {
+      return item.name == name;
+    })
+    //return this._items[name];
   },
   findItemsByProjectName: function(project) {
-    return _.keys(this._items)
-      .filter(function(key) {
-        return this._items[key].project == project
-      }.bind(this))
-      .map(function(key) {
-        return this._items[key];
-      }.bind(this));
+    return _.where(this._items, function(item) {
+      return item.project == project
+    });
+//    return _.keys(this._items)
+//      .filter(function(key) {
+//        return this._items[key].project == project
+//      }.bind(this))
+//      .map(function(key) {
+//        return this._items[key];
+//      }.bind(this));
   },
   findItemsByLocation: function(location) {
-    return _.keys(this._items)
-      .filter(function(key) {
-        return this._items[key].location == location
-      }.bind(this))
-      .map(function(key) {
-        return this._items[key];
-      }.bind(this));
+    return _.where(this._items, function(item) {
+      return item.location == location;
+    });
+
+//    return _.keys(this._items)
+//      .filter(function(key) {
+//        return this._items[key].location == location
+//      }.bind(this))
+//      .map(function(key) {
+//        return this._items[key];
+//      }.bind(this));
   }
 });
 
 var Item = {
+  id: null,
   name: null,
   location: null,
   project: '',
@@ -73,15 +86,17 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
   var action = payload.action;
   switch(action.type) {
     case ActionTypes.TEST_ACTION:
-      console.log('test');
+      console.log('test action');
       ItemStore.emitChange();
       break;
 
     case ActionTypes.INITIALIZE_ITEM:
-      if (ItemStore.findItemByName(action.name)) {
-        throw "Can't have two items with the same name!";
-      }
-      ItemStore._items[action.item.name] = assign({actions: []}, Item, action.item);
+      //if (ItemStore.findItemByName(action.name)) {
+      //  throw "Can't have two items with the same name!";
+      //}
+      action.item.id = uuid.v4();
+      ItemStore._items.push(assign({actions: []}, Item, action.item));
+      //ItemStore._items[action.item.name] = assign({actions: []}, Item, action.item);
       ItemStore.emitChange();
       break;
 
@@ -91,22 +106,28 @@ ItemStore.dispatchToken = gtdDispatcher.register(function(payload) {
         throw "Can't add an item with no name";
       }
 
-      if (ItemStore.findItemByName(action.name)) {
-        throw "Can't have two items with the same name!";
-      }
+      //if (ItemStore.findItemByName(action.name)) {
+      //  throw "Can't have two items with the same name!";
+      //}
 
-
-      ItemStore._items[action.name] = assign({actions: []}, Item, {
+      var item = assign({actions: []}, Item, {
+        id: uuid.v4(),
         name: action.name,
         location: action.location,
         dateAdded: moment()
       });
 
+      ItemStore._items.push(item);
+      // ItemStore._items[action.name] = item;
+
       ItemStore.emitChange();
       break;
 
     case ActionTypes.DELETE_ITEM:
-      delete ItemStore._items[action.name];
+      _.remove(ItemStore._items, function(item) {
+        return item.name == action.name
+      })
+      //delete ItemStore._items[action.name];
       ItemStore.emitChange();
       break;
 

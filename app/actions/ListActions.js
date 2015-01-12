@@ -20,4 +20,12 @@ module.exports = {
     });
   },
 
+  ADD_WIDGET_TO_LIST: function(name, widget) {
+    gtdDispatcher.handleViewAction({
+      type: ActionTypes.ADD_WIDGET_TO_LIST,
+      name: name,
+      widget: widget
+    })
+  }
+
 };
