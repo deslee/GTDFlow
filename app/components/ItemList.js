@@ -51,7 +51,6 @@ module.exports = React.createClass({
   componentDidMount: function() {
   },
   render: function() {
-    console.log(this.state.data)
     if (this.state.data.length > 0) {
       return <div className="">
         <div className="form-group">

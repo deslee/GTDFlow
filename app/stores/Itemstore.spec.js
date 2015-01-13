@@ -22,8 +22,11 @@ describe('Item store', function() {
 
   describe('With one item', function() {
     var item_name = 'See Interstella';
+    var item;
     beforeEach(function() {
       ItemActions.ADD_ITEM(item_name, "In List");
+      item = ItemStore.findItemByName(item_name);
+
     });
 
     it('should have one item', function() {
@@ -46,14 +49,14 @@ describe('Item store', function() {
     });
 
     it('should allow you to remove an item', function() {
-      ItemActions.DELETE_ITEM(item_name);
+      ItemActions.DELETE_ITEM(item.id);
       expect(items.length).toBe(0);
     });
 
     describe('an item with an action', function() {
       var action_name = "Check showtimes online";
       beforeEach(function() {
-        ItemActions.ADD_ACTION_TO_ITEM(item_name, action_name);
+        ItemActions.ADD_ACTION_TO_ITEM(item.id, action_name);
       });
 
       it('should have one action in the item', function() {
@@ -63,25 +66,25 @@ describe('Item store', function() {
 
       it('should not allow two actions with the same name', function() {
         expect(function() {
-          ItemActions.ADD_ACTION_TO_ITEM(item_name, action_name);
+          ItemActions.ADD_ACTION_TO_ITEM(item.id, action_name);
         }).toThrow("Can't have two actions in an item with the same name!");
       });
 
       it('should not allow you to add an action with no name', function() {
         expect(function() {
-          ItemActions.ADD_ACTION_TO_ITEM(item_name, '');
+          ItemActions.ADD_ACTION_TO_ITEM(item.id, '');
         }).toThrow("Can't add an action with no name");
       });
 
       it('should let you remove an action from an item', function() {
-        ItemActions.DELETE_ACTION_FROM_ITEM(item_name, action_name);
+        ItemActions.DELETE_ACTION_FROM_ITEM(item.id, action_name);
         expect(items[0].actions.length).toBe(0);
       })
     });
 
     describe('moving locations', function() {
       it('should be able to move to another list', function() {
-        ItemActions.MOVE_ITEM(item_name, 'foobar');
+        ItemActions.MOVE_ITEM(item.id, 'foobar');
         expect(items[0].location).toBe('foobar');
         expect(ItemStore.findItemsByLocation('foobar').length).toBe(1);
       });
@@ -91,7 +94,7 @@ describe('Item store', function() {
     var notes = "Hello world!"
     describe('setting metadata', function() {
       it('should let you set the project', function() {
-        ItemActions.SET_ITEM_PROJECT(item_name, project_name);
+        ItemActions.SET_ITEM_PROJECT(item.id, project_name);
         expect(items[0].project).toBe(project_name)
         var results = ItemStore.findItemsByProjectName(project_name);
         expect(results.length).toBe(1);
@@ -99,7 +102,7 @@ describe('Item store', function() {
       });
 
       it('should let you set the notes', function() {
-        ItemActions.SET_ITEM_NOTES(item_name, notes);
+        ItemActions.SET_ITEM_NOTES(item.id, notes);
         expect(items[0].notes).toBe(notes)
       })
     })
