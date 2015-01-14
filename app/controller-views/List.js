@@ -27,9 +27,14 @@ var List = React.createClass({
     });
   },
   render: function() {
-    var components = [
-      <AddItem location={this.props.list.name}></AddItem>,
-    ]
+    console.log(this.props.list)
+
+    var components = this.props.list.listWidgets.map(function(widget) {
+      switch (widget.name) {
+        case 'AddItem':
+          return <AddItem location={this.props.list.name}></AddItem>
+      }
+    }.bind(this))
 
     return <div>
         {components}

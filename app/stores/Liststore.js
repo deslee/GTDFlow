@@ -34,17 +34,19 @@ var ListStore = assign({}, EventEmitter.prototype, {
 
 var List = {
   name: null,
-  listWidgets: [],
-  itemWidgets: []
+  listWidgets: null,
+  itemWidgets: null
 };
 
 ListStore.dispatchToken = gtdDispatcher.register(function(payload) {
   var action = payload.action;
   switch(action.type) {
     case ActionTypes.ADD_LIST:
-      ListStore._lists[action.name] = assign({}, List, {
+      var list = ListStore._lists[action.name] = assign({}, List, {
         name: action.name
       });
+      list.listWidgets = [];
+      list.itemWidgets = [];
       ListStore.emitChange();
           break;
     case ActionTypes.DELETE_LIST:
@@ -52,6 +54,8 @@ ListStore.dispatchToken = gtdDispatcher.register(function(payload) {
       ListStore.emitChange();
           break;
     case ActionTypes.ADD_WIDGET_TO_LIST:
+      var list = ListStore._lists[action.name]
+      list.listWidgets.push(action.widget)
       ListStore.emitChange();
           break;
   }

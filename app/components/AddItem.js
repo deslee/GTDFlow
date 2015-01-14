@@ -12,7 +12,7 @@ module.exports = React.createClass({
     return <form>
       <div className="form-group">
         <input className="form-control floating-label col-xs-2" ref="itemName" type="text" placeholder="Add Item" />
-        <button type="submit" className="btn btn-primary" onClick={this.addItem}>Add Item</button>
+        <button className="btn btn-primary" onClick={this.addItem}>Add Item</button>
       </div>
     </form>;
   }
